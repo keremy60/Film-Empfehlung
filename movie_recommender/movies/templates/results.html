@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filme für {{ genre }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <div class="search-container result-search" id="searchContainer">
+        <div class="search-form">
+            <form method="POST">
+                {% csrf_token %}
+                <input type="text" name="genre" class="search-box" id="searchBox" placeholder="Genre eingeben..." required>
+                <button type="submit" class="search-btn">Suchen</button>
+            </form>
+        </div>
+        <div class="searched-term">
+            <span>Suche für: {{ genre }}</span>
+        </div>
+    </div>
+
+    <div class="movie-container">
+        {% if movies %}
+            {% for movie in movies %}
+            <div class="movie-card">
+                <img src="{{ movie.poster_url }}" alt="{{ movie.title }}">
+                <div class="movie-title">{{ movie.title }}</div>
+                <div class="movie-rating">⭐ {{ movie.rating }}/10</div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-results">Keine Ergebnisse gefunden.</div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
