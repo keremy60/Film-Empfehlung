@@ -1,8 +1,20 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filmempfehlungen</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
 <body>
-
-<h1>Hello World!</h1>
-
+    <h1>Filmempfehlungen</h1>
+    <div class="search-container" id="searchContainer">
+        <form method="POST" id="searchForm">
+            {% csrf_token %}
+            <input type="text" name="genre" class="search-box" id="searchBox" placeholder="Genre eingeben..." required value="{{ genre|default:'' }}">
+            <button type="submit" class="search-btn">Suchen</button>
+        </form>
+    </div>
 </body>
 </html>
